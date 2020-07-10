@@ -6,9 +6,9 @@ import axios from 'axios';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Card, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import style from './transport.form.style';
+import style from './other.form.style';
 
-export default class TranportForm extends Component {
+export default class OtherForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -105,7 +105,7 @@ export default class TranportForm extends Component {
       <SafeAreaView style={style.container}>
         <ScrollView>
           <Text style={style.textareaContainer}>
-            Transport Reimbursement Request
+            Other Reimbursement Request
           </Text>
 
           <Card title="FORM">
@@ -125,7 +125,7 @@ export default class TranportForm extends Component {
               </Picker>
             </View>
 
-            <Text style={style.textSM}>Overtime Date *</Text>
+            <Text style={style.textSM}>Date *</Text>
 
             <View style={style.viewDate1}>
               <View style={style.viewDate2}>
@@ -164,6 +164,22 @@ export default class TranportForm extends Component {
               )}
             </View>
 
+            <Text style={style.textSM}>Reimbursement Type *</Text>
+
+            <View style={style.viewPicker}>
+              <Picker
+                mode={'dropdown'}
+                selectedValue={this.state.headDivision}
+                style={style.picker}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({headDivision: itemValue})
+                }>
+                <Picker.Item label="" value="" />
+                <Picker.Item label="Java" value="java" />
+                <Picker.Item label="JavaScript" value="js" />
+              </Picker>
+            </View>
+
             <Text style={style.textSM}>Description Request *</Text>
 
             <TextInput
@@ -174,17 +190,7 @@ export default class TranportForm extends Component {
               onChangeText={text => this.setState({message: text})}
               value={this.state.message}
             />
-
-            <Text style={style.textSM}>Departure Location *</Text>
-            <TextInput
-              multiline={true}
-              maxLength={200}
-              placeholder=""
-              style={style.inputText}
-              onChangeText={text => this.setState({message: text})}
-              value={this.state.message}
-            />
-
+            
             <Text style={style.textSM}>Total Expense *</Text>
             <TextInput
               multiline={true}

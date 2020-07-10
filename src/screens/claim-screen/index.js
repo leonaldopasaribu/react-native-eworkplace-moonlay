@@ -39,20 +39,14 @@ export default class index extends Component {
             </TouchableOpacity>
           </Card>
           <Card containerStyle={styles.card}>
-            <TouchableOpacity style={styles.Button} onPress={this.moveToSick}>
-            <Money width={70} height={70} />
-              <Text style={styles.text}>Overtime</Text>
-            </TouchableOpacity>
-          </Card>
-        </View>
-
-        <View style={{ flex: 15, flexDirection: 'row', alignSelf: 'center' }}>
-          <Card containerStyle={styles.card}>
             <TouchableOpacity style={styles.Button} onPress={this.moveToDayOff}>
               <Coffee width={70} height={70} />
               <Text style={styles.text}>Taking Day Off</Text>
             </TouchableOpacity>
           </Card>
+        </View>
+
+        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
           <Card containerStyle={styles.card}>
             <TouchableOpacity style={styles.Button} onPress={this.moveToSick}>
               <Aid width={70} height={70} />
