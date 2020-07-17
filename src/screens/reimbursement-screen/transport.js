@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {DataTable} from 'react-native-paper';
+import {Button} from 'react-native-elements';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import style from './transport.style';
 
@@ -107,8 +108,10 @@ function Transport({navigation}) {
                     {cancelable: false},
                   )
                 }>
-                Tools
+                View ->
               </Text>
+
+
             </DataTable.Cell>
           </DataTable.Row>
 
@@ -181,7 +184,7 @@ function Transport({navigation}) {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('TransportForm');
+            navigation.navigate('TransportAdd');
           }}
           style={style.buttonRequest}>
           <Text style={style.textbtnRequest}>Request</Text>

@@ -16,10 +16,10 @@ import ClockInHistory from '../screens/ClockInHistory'
 
 import ReimbursementScreen from '../screens/reimbursement-screen/index'
 import TransportScreen from '../screens/reimbursement-screen/transport';
-import TransportFormScreen from '../screens/reimbursement-screen/transport.form'
+import TransportAddScreen from '../screens/reimbursement-screen/transport.add'
 import TransportDetailScreen from '../screens/reimbursement-screen/transport.detail'
 import OtherScreen from '../screens/reimbursement-screen/other';
-import OtherFormScreen from '../screens/reimbursement-screen/other.form';
+import OtherAddScreen from '../screens/reimbursement-screen/other.add';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BottomNavBar from './BottomNavBar'
@@ -110,10 +110,10 @@ function MyStack() {
 
       <Stack.Screen name="Reimbursement" component={ReimbursementScreen} options={{headerTitle:'Reimbursement',}}/>  
       <Stack.Screen name="Transport" component={TransportScreen} options={{headerTitle:'Transport',}}/>  
-      <Stack.Screen name="TransportForm" component={TransportFormScreen} options={{headerTitle:'Transport Request',}}/> 
+      <Stack.Screen name="TransportAdd" component={TransportAddScreen} options={{headerTitle:'Transport Request',}}/> 
       <Stack.Screen name="TransportDetail" component={TransportDetailScreen} options={{headerTitle:'Transport Detail',}}/>  
       <Stack.Screen name="Other" component={OtherScreen} options={{headerTitle:'Other',}}/> 
-      <Stack.Screen name="OtherForm" component={OtherFormScreen} options={{headerTitle:'Other Request',}}/>  
+      <Stack.Screen name="OtherAdd" component={OtherAddScreen} options={{headerTitle:'Other Request',}}/>  
     </Stack.Navigator>
   );
 }

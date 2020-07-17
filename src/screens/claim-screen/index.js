@@ -46,7 +46,7 @@ export default class index extends Component {
           </Card>
         </View>
 
-        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
+        <View style={{ flex:15, flexDirection: 'row', alignSelf: 'center' }}>
           <Card containerStyle={styles.card}>
             <TouchableOpacity style={styles.Button} onPress={this.moveToSick}>
               <Aid width={70} height={70} />

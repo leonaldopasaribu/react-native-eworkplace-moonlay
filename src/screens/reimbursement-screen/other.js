@@ -181,7 +181,7 @@ function Transport({navigation}) {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('OtherForm');
+            navigation.navigate('OtherAdd');
           }}
           style={style.buttonRequest}>
           <Text style={style.textbtnRequest}>Request</Text>
