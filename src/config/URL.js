@@ -6,3 +6,6 @@ export const Url_GetID = 'https://eworkmoonlay-user-dev.azurewebsites.net/v1/acc
 export const Url_GetDataApproval = 'https://eworkmoonlay-absen-dev.azurewebsites.net/v1/Absensis?Approval=Pending&HeadDivision='
 export const Url_UploadPhoto = 'https://eworkmoonlay-absen-dev.azurewebsites.net/api/BlobStorage/InsertFile'
 export const Url_GetListHD = 'https://eworkmoonlay-user-dev.azurewebsites.net/v1/accounts/by-division-name/'
+
+//Test Api
+export const API_URL = 'https://5f16c59aa346a00016739509.mockapi.io/api/v1/';

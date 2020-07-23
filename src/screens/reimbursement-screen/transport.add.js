@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Alert,
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -17,16 +18,15 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Card, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './transport.add.style';
+import * as Resources from '../../config/Resource';
 
 function TransportAdd({navigation}) {
   const [selectedValue, setSelectedValue] = useState();
   const [value, onChangeText] = useState();
-
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [choosedate, setChooseDate] = useState();
-
   const [description, setDescription] = useState('');
   const [departureLocation, setDepartureLocation] = useState('');
   const [destinationLocation, setDestinationLocation] = useState('');
@@ -48,33 +48,45 @@ function TransportAdd({navigation}) {
     showMode('date');
   };
 
-  const showTimepicker = () => {
-    showMode('time');
-  };
-
   const body = {
+    date: date,
     description: description,
     departureLocation: departureLocation,
     destinationLocation: destinationLocation,
     totalExpense: totalExpense,
   };
 
-//   const transportRequest = () => {
-//     Resources.createProject(body)
-//       .then(res => {
-//         resetForm();
-//         Alert('Transport Request Success');
-//       })
-//       .catch(err => {
-//         console.log(JSON.stringify(err));
-//       });
-//   };
+  const createTransport = () => {
+    Resources.createTransport(body)
+      .then(res => {
+        resetForm();
+        Alert.alert(
+          "Transport Request Success",
+          "",
+          [
+            { text: "OK", onPress: () => navigation.navigate('Transport') }
+          ],
+          { cancelable: false }
+        );
+      })
+      .catch(err => {
+        alert(err);
+      });
+  };
+
+  const CheckTextInput = () => {
+    if(description == ""){
+      alert('Please Enter Description Request')
+    } else{
+      alert('Success')
+    }
+  };
 
   const resetForm = () => {
-    setDescription('');
-    setDepartureLocation('');
-    setDestinationLocation('');
-    setTotalExpense('');
+    setDescription("");
+    setDepartureLocation("");
+    setDestinationLocation("");
+    setTotalExpense("");
   };
   const tanggal = moment(choosedate).format('MM/DD/YYYY');
 
@@ -189,7 +201,7 @@ function TransportAdd({navigation}) {
           </View>
 
           <TouchableOpacity
-            onPress={() => alert('Under Development!')}
+            onPress={createTransport}
             style={style.buttonSubmit}>
             <Text style={style.textbtnSubmit}>Submit</Text>
           </TouchableOpacity>

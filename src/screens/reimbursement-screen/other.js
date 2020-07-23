@@ -7,15 +7,47 @@ import {
   Picker,
   TouchableOpacity,
   ScrollView,
+  FlatList,
+  RefreshControl,
 } from 'react-native';
 import {DataTable} from 'react-native-paper';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import style from './transport.style';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import style from './other.style';
+import moment from 'moment';
+import * as Resources from '../../config/Resource';
 
-function Transport({navigation}) {
-  useEffect(() => {});
+function Other({navigation}) {
+  useEffect(() => {
+    getOthers();
+  }, []);
 
+  const [refreshing, setRefreshing] = useState(false);
   const [selectedValue, setSelectedValue] = useState('All');
+  const [date, setDate] = useState([]);
+
+  const wait = timeout => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  const getOthers = () => {
+    Resources.getOthers()
+      .then(r => {
+        console.log(r);
+        setDate(r);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   return (
     <SafeAreaView style={style.container}>
@@ -50,6 +82,7 @@ function Transport({navigation}) {
           </Picker>
         </View>
 
+        <Text style={style.textForm}>Sort By Month</Text>
         <View style={style.viewPickerDate}>
           <Picker
             selectedValue={selectedValue}
@@ -82,92 +115,34 @@ function Transport({navigation}) {
             </DataTable.Title>
           </DataTable.Header>
 
-          <DataTable.Row>
-            <DataTable.Cell>June 19, 2020</DataTable.Cell>
-            <DataTable.Cell numeric>Other</DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text style={style.textApproved}>Approved</Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text
-                onPress={() =>
-                  Alert.alert(
-                    'Action',
-                    '',
-                    [
-                      {
-                        text: 'View Detail ',
-                        onPress: () => {
-                          navigation.navigate('TransportDetail');
-                        },
-                        style: 'cancel',
-                      },
-                      {text: 'Print', onPress: () => console.log('Print')},
-                    ],
-                    {cancelable: false},
-                  )
-                }>
-                Tools
-              </Text>
-            </DataTable.Cell>
-          </DataTable.Row>
-
-          <DataTable.Row>
-            <DataTable.Cell>Juni 02, 2020</DataTable.Cell>
-            <DataTable.Cell numeric>Other</DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text style={style.textRejected}>Rejected</Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text
-                onPress={() =>
-                  Alert.alert(
-                    'Action',
-                    '',
-                    [
-                      {
-                        text: 'View Detail ',
-                        onPress: () => {
-                          navigation.navigate('TransportDetail');
-                        },
-                        style: 'cancel',
-                      },
-                      {text: 'Print', onPress: () => console.log('Print')},
-                    ],
-                    {cancelable: false},
-                  )
-                }>
-                Tools
-              </Text>
-            </DataTable.Cell>
-          </DataTable.Row>
-
-          <DataTable.Row>
-            <DataTable.Cell>Juni 02, 2020</DataTable.Cell>
-            <DataTable.Cell numeric>Other</DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text style={style.textRejected}>Rejected</Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>Tools</DataTable.Cell>
-          </DataTable.Row>
-
-          <DataTable.Row>
-            <DataTable.Cell>Juni 02, 2020</DataTable.Cell>
-            <DataTable.Cell numeric>Other</DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text style={style.textRejected}>Rejected</Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>Tools</DataTable.Cell>
-          </DataTable.Row>
-
-          <DataTable.Row>
-            <DataTable.Cell>Juni 02, 2020</DataTable.Cell>
-            <DataTable.Cell numeric>Other</DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text style={style.textRejected}>Rejected</Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>Tools</DataTable.Cell>
-          </DataTable.Row>
+          <FlatList
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            data={date}
+            renderItem={({item}) => (
+              <View style={style.containerTable}>
+                <View style={style.columnDate}>
+                  <Text style={style.textTable}>{moment(item.date).format('dddd, MMMM D YYYY')}</Text>
+                </View>
+                <View style={style.columnCategory}>
+                  <Text style={style.textTable}>Other</Text>
+                </View>
+                <View style={style.columnStatus}>
+                  <Text style={style.textPending}>Pending</Text>
+                </View>
+                <View style={style.columnAction}>
+                  <Button
+                    icon={<Icon name="long-arrow-right" size={18} color="white" />}
+                    iconRight
+                    onPress={() => {
+                      navigation.navigate('OtherDetail');
+                    }}
+                  />
+                </View>
+              </View>
+            )}
+          />
 
           <DataTable.Pagination
             page={1}
@@ -191,4 +166,4 @@ function Transport({navigation}) {
   );
 }
 
-export default Transport;
+export default Other;

@@ -20,6 +20,7 @@ import TransportAddScreen from '../screens/reimbursement-screen/transport.add'
 import TransportDetailScreen from '../screens/reimbursement-screen/transport.detail'
 import OtherScreen from '../screens/reimbursement-screen/other';
 import OtherAddScreen from '../screens/reimbursement-screen/other.add';
+import OtherDetailScreen from '../screens/reimbursement-screen/other.detail';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BottomNavBar from './BottomNavBar'
@@ -114,6 +115,7 @@ function MyStack() {
       <Stack.Screen name="TransportDetail" component={TransportDetailScreen} options={{headerTitle:'Transport Detail',}}/>  
       <Stack.Screen name="Other" component={OtherScreen} options={{headerTitle:'Other',}}/> 
       <Stack.Screen name="OtherAdd" component={OtherAddScreen} options={{headerTitle:'Other Request',}}/>  
+      <Stack.Screen name="OtherDetail" component={OtherDetailScreen} options={{headerTitle:'Other Detail',}}/>  
     </Stack.Navigator>
   );
 }

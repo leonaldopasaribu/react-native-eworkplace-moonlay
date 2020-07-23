@@ -7,8 +7,8 @@ import {
   Picker,
   Platform,
   TouchableOpacity,
-  FlatList,
   TextInput,
+  Alert
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -17,19 +17,16 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Card, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './transport.add.style';
+import * as Resources from '../../config/Resource';
 
 function OtherAdd({navigation}) {
   const [selectedValue, setSelectedValue] = useState();
   const [value, onChangeText] = useState();
-
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [choosedate, setChooseDate] = useState();
-
   const [description, setDescription] = useState('');
-  const [departureLocation, setDepartureLocation] = useState('');
-  const [destinationLocation, setDestinationLocation] = useState('');
   const [totalExpense, setTotalExpense] = useState('');
 
   const onChange = (event, selectedDate) => {
@@ -48,33 +45,33 @@ function OtherAdd({navigation}) {
     showMode('date');
   };
 
-  const showTimepicker = () => {
-    showMode('time');
-  };
-
   const body = {
+    date: date,
     description: description,
-    departureLocation: departureLocation,
-    destinationLocation: destinationLocation,
     totalExpense: totalExpense,
   };
 
-//   const transportRequest = () => {
-//     Resources.createProject(body)
-//       .then(res => {
-//         resetForm();
-//         Alert('Transport Request Success');
-//       })
-//       .catch(err => {
-//         console.log(JSON.stringify(err));
-//       });
-//   };
+  const createOther = () => {
+    Resources.createOther(body)
+      .then(res => {
+        resetForm();
+        Alert.alert(
+          "Other Request Success",
+          "",
+          [
+            { text: "OK", onPress: () => navigation.navigate('Other') }
+          ],
+          { cancelable: false }
+        );
+      })
+      .catch(err => {
+        alert(err);
+      });
+  };
 
   const resetForm = () => {
-    setDescription('');
-    setDepartureLocation('');
-    setDestinationLocation('');
-    setTotalExpense('');
+    setDescription("");
+    setTotalExpense("");
   };
   const tanggal = moment(choosedate).format('MM/DD/YYYY');
 
@@ -181,7 +178,7 @@ function OtherAdd({navigation}) {
           </View>
 
           <TouchableOpacity
-            onPress={() => alert('Under Development!')}
+            onPress={createOther}
             style={style.buttonSubmit}>
             <Text style={style.textbtnSubmit}>Submit</Text>
           </TouchableOpacity>
